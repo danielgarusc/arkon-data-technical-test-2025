@@ -1,0 +1,6 @@
+{
+    "mysql": {
+        "driver": "mysql",
+        "connection_string": "${CONNECTION_URI}"
+    }
+}

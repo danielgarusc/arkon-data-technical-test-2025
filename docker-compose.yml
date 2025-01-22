@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  fastapi-arkon-data:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - TYPE_DB=mysql
+      - CONNECTION_URI=mysql+pymysql://root:dgu123456@mysql-arkon-data:3306/arkon_test
+      - PATH_RULE_DB=config/db/drivers/rule_db.json
+      - FILE_NAME=puntos_de_acceso_wifi.csv
+      - FILE_PATH=storage/data_cdmx_wifi
+      - URL_BASE=https://datos.cdmx.gob.mx/dataset/aa2ff336-b4aa-44f3-b38a-f303ef0f7673/resource/98f51fe2-18cb-4f50-a989-b9f81a2b5a76/download/{BASE_DATE}-puntos_de_acceso_wifi.csv
+      - CELERY_BROKER_URL=redis://redis-arkon-data:6379/0
+    depends_on:
+      - mysql-arkon-data
+      - celery-worker
+
+  celery-worker:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      command: celery -A config.celery worker --beat
+      environment:
+        - TYPE_DB=mysql
+        - CONNECTION_URI=mysql+pymysql://root:dgu123456@mysql-arkon-data:3306/arkon_test
+        - PATH_RULE_DB=config/db/drivers/rule_db.json
+        - FILE_NAME=puntos_de_acceso_wifi.csv
+        - FILE_PATH=storage/data_cdmx_wifi
+        - URL_BASE=https://datos.cdmx.gob.mx/dataset/aa2ff336-b4aa-44f3-b38a-f303ef0f7673/resource/98f51fe2-18cb-4f50-a989-b9f81a2b5a76/download/{BASE_DATE}-puntos_de_acceso_wifi.csv
+        - CELERY_BROKER_URL=redis://redis-arkon-data:6379/0
+      depends_on:
+        - redis-arkon-data
+
+  mysql-arkon-data:
+    container_name: mysql_arkon
+    image: mysql:5.7
+    command: mysqld --default-authentication-plugin=mysql_native_password    
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: dgu123456   
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./config/db/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
+
+  redis-arkon-data:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql_data:
