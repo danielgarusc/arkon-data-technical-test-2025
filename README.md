@@ -106,11 +106,11 @@ El proyecto es un pipeline de análisis de datos que utiliza los datos abiertos 
     -H 'accept: application/json' \
     -H 'Content-Type: application/json' \
     -d '{
-    "date_base": "2024-02-17"
+    "date_base": "2024-06-30"
     }'
 
     Comando paver:
-    paver process_data --file_date=2024-02-17    
+    paver process_data --file_date=2024-06-30    
     ```
 ## Instalación y Ejecución con Docker Compose
 
@@ -160,11 +160,11 @@ Para instalar y ejecutar la aplicación utilizando Docker Compose, sigue estos p
     -H 'accept: application/json' \
     -H 'Content-Type: application/json' \
     -d '{
-    "date_base": "2024-02-17"
+    "date_base": "2024-06-30"
     }'
 
     Comando paver:
-    paver process_data --file_date=2024-02-17  
+    paver process_data --file_date=2024-06-30 
     ```
 
 Recuerda que si necesitas detener los contenedores en algún momento, puedes ejecutar:
