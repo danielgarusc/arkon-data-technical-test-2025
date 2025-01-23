@@ -14,7 +14,7 @@ router = APIRouter()
 
 @router.get("/wifi_access_points", response_model=AllResponse)
 def wifi_access_points(
-        offset: int = Query(default=0, ge=0), limit: int = Query(default=50, le=1000), 
+        offset: int = Query(default=0, ge=0), limit: int = Query(default=50, le=1000),
         colony: str = None) -> AllResponse:
     try:
         results = None
@@ -33,16 +33,16 @@ def wifi_access_points_by_id(id: str) -> AccessPoint:
     try:
         return ApiHandler.data_by_id_handler(id=id)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))    
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/wifi_ordered_by_proximity/latitude/{latitude}/longitude/{longitude}", response_model=AllResponse)
 def wifi_ordered_by_proximity(
-        latitude: float, longitude: float, offset: int = Query(default=0, ge=0), 
+        latitude: float, longitude: float, offset: int = Query(default=0, ge=0),
         limit: int = Query(default=50, le=1000)) -> AllResponse:
     try:
         results = ApiHandler.wifi_ordered_by_proximity_handler(
-            latitude=latitude, longitude=longitude, offset=offset, limit=limit)    
+            latitude=latitude, longitude=longitude, offset=offset, limit=limit)
         return AllResponse(access_points=results["access_points"], pagination_info=results["pagination_info"])
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

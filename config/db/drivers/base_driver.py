@@ -6,7 +6,7 @@ from app.api.core.exceptions import DatabaseErrorException, NoConnectionDatabase
 
 class BaseDBDriver(ABC):
     @abstractmethod
-    def connect(self):        
+    def connect(self):
         """Abstract method to establish the connection with the database."""
         pass
 
@@ -21,7 +21,7 @@ class BaseDBDriver(ABC):
     def execute_query(self, query: str, params: tuple = None):
         ''' Method to execute queries '''
         if params:
-            query = query % params        
+            query = query % params
         df = pd.read_sql_query(text(query), self.conn)
         return df
 

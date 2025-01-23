@@ -3,6 +3,7 @@
 from app.api.core.models import WifiRecord
 import unicodedata
 
+
 def build_combined_records(wifi_records: WifiRecord):
     ''' Build a list of dictionaries by combining WifiRecord and Colony data '''
     combined_records = []

@@ -1,0 +1,18 @@
+[flake8]
+# Ignorar reglas específicas (por ejemplo, E501 para líneas largas)
+ignore = E501
+
+# Máxima longitud de línea permitida
+max-line-length = 120
+
+# Excluir ciertos archivos o directorios (por ejemplo, migraciones o entornos virtuales)
+exclude =
+    .git,
+    __pycache__,
+    migrations,
+    venv,
+    .env
+
+# Mostrar estadísticas al final del reporte
+statistics = True
+

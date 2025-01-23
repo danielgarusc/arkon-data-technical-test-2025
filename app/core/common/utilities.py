@@ -4,8 +4,8 @@ from decouple import config
 
 
 def open_text(path):
-    ''' Method to open text files '''       
-    with open(path, "r") as file:        
+    ''' Method to open text files '''
+    with open(path, "r") as file:
         text = file.read()
     return text
 
@@ -14,7 +14,7 @@ def open_json(path):
     ''' Method to open json files '''
     with open(path, 'r') as file:
         json_str = file.read()
-    json_str = replace_env_variables(json_str)    
+    json_str = replace_env_variables(json_str)
     return json.loads(json_str)
 
 

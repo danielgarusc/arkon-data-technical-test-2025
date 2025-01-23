@@ -28,7 +28,7 @@ class WifiRecord(Base):
 
     def as_dict(self):
         return {
-            "id": self.id,            
+            "id": self.id,
             "programa": self.programa,
             "fecha_instalacion": self.fecha_instalacion,
             "latitud": self.latitud,

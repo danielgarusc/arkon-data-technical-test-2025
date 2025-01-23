@@ -22,8 +22,8 @@ class Query:
         return AllResponse(access_points=access_points, pagination_info=pagination_info)
 
     @strawberry.field
-    def wifi_access_points_by_id(id: str) -> AccessPoint:        
-        data = ApiHandler.data_by_id_handler(id=id)        
+    def wifi_access_points_by_id(id: str) -> AccessPoint:
+        data = ApiHandler.data_by_id_handler(id=id)
         return AccessPoint(**data)
 
     @strawberry.field

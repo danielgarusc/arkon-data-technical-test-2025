@@ -17,7 +17,7 @@ def process_data(options):
         if hasattr(options, 'file_date'):
             file_date = options.file_date
             if re.match(r'^\d{4}-\d{2}-\d{2}$', file_date):
-                # ProcessDataConsole.process_data(file_date)                
+                ProcessDataConsole.process_data(file_date)
                 print(f'{file_date} done!')
             else:
                 raise PaverCommandException("Invalid 'file_date' format. Please use YYYY-MM-DD.")
@@ -26,4 +26,4 @@ def process_data(options):
         logger.info(f"Paver - Message: {file_date} done!")
     except Exception as e:
         logger.error(f"Paver - Message: {e}")
-        print(e)        
+        print(e)

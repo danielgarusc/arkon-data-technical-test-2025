@@ -11,7 +11,7 @@ class DriverDB(BaseDBDriver):
 
     def connect(self):
         ''' Crea una conexión con sqlalchemy '''
-        try:            
+        try:
             engine = create_engine(self.connection_uri)
             self.conn = engine.connect()
         except Exception as e:

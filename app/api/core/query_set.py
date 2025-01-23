@@ -25,9 +25,9 @@ def get_wifi_record_by_id(id_wifi):
         if not wifi_record:
             raise NotFoundException(f"Record with id {id_wifi} not found")
         record = wifi_record.as_dict()
-        colony = wifi_record.colony       
+        colony = wifi_record.colony
         record.update(colony.as_dict())
-        return record        
+        return record
     except Exception as e:
         raise DatabaseErrorException(f"{get_wifi_record_by_id.__name__}-{str(e)}")
     finally:
@@ -69,7 +69,7 @@ def search_wifi_records_like(colony_name, offset: int, limit: int):
 def get_all_wifi_records(offset: int, limit: int):
     ''' Check all records and applying offset and limit'''
     try:
-        session = SessionLocal()        
+        session = SessionLocal()
 
         total_items = session.query(WifiRecord).count()
 
@@ -105,23 +105,22 @@ def get_all_wifi_proximity(lat: float, lon: float, offset: int, limit: int,):
                 Colony,
                 (
                     func.acos(
-                        func.cos(
-                            func.radians(lat)) * func.cos(func.radians(WifiRecord.latitud)) * func.cos(
-                                func.radians(WifiRecord.longitud) - func.radians(lon)) + func.sin(func.radians(lat)
-                            ) * func.sin(func.radians(WifiRecord.latitud))
+                        func.cos(func.radians(lat)) * func.cos(func.radians(WifiRecord.latitud)) * func.cos(
+                            func.radians(WifiRecord.longitud) - func.radians(lon)
+                        ) + func.sin(func.radians(lat)) * func.sin(func.radians(WifiRecord.latitud))
                     ) * 6371  # Calculate the distance in kilometers
                 ).label("distance")
-            ) 
+            )
             .join(WifiRecord.colony)  # Perform a join with the Colony table
             .order_by("distance")  # Sort by calculated distance
             .offset(offset)
             .limit(limit)
             .all()
-        )        
+        )
         # Build a list of dictionaries by combining WifiRecord, Colony and distance data
         combined_records = []
         for wifi_record, colony, distance in wifi_records:
-            record_dict = wifi_record.as_dict() 
+            record_dict = wifi_record.as_dict()
             colony_dict = colony.as_dict()
             record_dict.update(colony_dict)
             record_dict["distancia"] = distance
@@ -133,4 +132,4 @@ def get_all_wifi_proximity(lat: float, lon: float, offset: int, limit: int,):
     except Exception as e:
         raise DatabaseErrorException(f"{search_wifi_records_like.__name__}-{str(e)}")
     finally:
-        session.close()  
+        session.close()

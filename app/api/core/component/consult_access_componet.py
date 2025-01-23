@@ -5,12 +5,12 @@ from app.api.core.query_set import (
 class ConsultAccessComponent:
     @staticmethod
     def all_info_run(offset: int, limit: int) -> list:
-        records = get_all_wifi_records(offset, limit)      
+        records = get_all_wifi_records(offset, limit)
         return records
 
     @staticmethod
     def by_colony_run(colony: str, offset, limit) -> list:
-        records = search_wifi_records_like(colony, offset, limit)       
+        records = search_wifi_records_like(colony, offset, limit)
         return records
 
     @staticmethod

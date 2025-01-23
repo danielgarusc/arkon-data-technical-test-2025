@@ -19,7 +19,7 @@ def my_task():
         logger.info(f"Celery - Message: {now_str} done!")
     except Exception as e:
         logger.error(f"Celery - Message: {e}")
-        print(e)   
+        print(e)
 
 
 # Set the schedule to run the task every day at 1:00 AM.
