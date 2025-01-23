@@ -49,7 +49,7 @@ def wifi_ordered_by_proximity(
 
 
 @router.post("/process_data")
-def create_invoice(process_data: ProcessData) -> ProcessDataResponse:
+def process_data_endpoint(process_data: ProcessData) -> ProcessDataResponse:
     try:
         data = process_data.model_dump()
         ProcessDataConsole.process_data(data.get("date_base"))
